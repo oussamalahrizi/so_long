@@ -6,7 +6,7 @@
 /*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 04:01:26 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 13:48:14 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/01/18 15:47:00 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,7 @@ void	print_move(t_data *data)
 
 void	go_up(t_data *data, int collectible)
 {
-	if (data->map[data->pos_player.y - 1][data->pos_player.x] == 'X')
-	{
-		print_move(data);
-		printf("you lost\n");
-		exit (1);
-	}
-	else if (data->map[data->pos_player.y - 1][data->pos_player.x] != '1'
+	if (data->map[data->pos_player.y - 1][data->pos_player.x] != '1'
 		&& data->map[data->pos_player.y - 1][data->pos_player.x] != 'E')
 	{
 		print_move(data);
@@ -55,13 +49,7 @@ void	go_up(t_data *data, int collectible)
 
 void	go_left(t_data *data, int collectible)
 {
-	if (data->map[data->pos_player.y][data->pos_player.x - 1] == 'X')
-	{
-		print_move(data);
-		printf("you lost\n");
-		exit (1);
-	}
-	else if (data->map[data->pos_player.y][data->pos_player.x - 1] != '1'
+	if (data->map[data->pos_player.y][data->pos_player.x - 1] != '1'
 		&& data->map[data->pos_player.y][data->pos_player.x - 1] != 'E')
 	{
 		print_move(data);
@@ -90,13 +78,7 @@ void	go_left(t_data *data, int collectible)
 
 void	go_down(t_data *data, int collectible)
 {
-	if (data->map[data->pos_player.y + 1][data->pos_player.x] == 'X')
-	{
-		print_move(data);
-		printf("you lost\n");
-		exit (1);
-	}
-	else if (data->map[data->pos_player.y + 1][data->pos_player.x] != '1'
+	if (data->map[data->pos_player.y + 1][data->pos_player.x] != '1'
 		&& data->map[data->pos_player.y + 1][data->pos_player.x] != 'E')
 	{
 		data->pos_player.y += 1;
@@ -125,13 +107,7 @@ void	go_down(t_data *data, int collectible)
 
 void	go_right(t_data *data, int collectible)
 {
-	if (data->map[data->pos_player.y][data->pos_player.x + 1] == 'X')
-	{
-		print_move(data);
-		printf("you lost\n");
-		exit (1);
-	}
-	else if (data->map[data->pos_player.y][data->pos_player.x + 1] != '1'
+	if (data->map[data->pos_player.y][data->pos_player.x + 1] != '1'
 		&& data->map[data->pos_player.y][data->pos_player.x + 1] != 'E')
 	{
 		print_move(data);

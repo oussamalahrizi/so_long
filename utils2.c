@@ -6,7 +6,7 @@
 /*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 00:23:37 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 11:37:20 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:15:18 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	fill(t_data *data, t_pos pos, char new, char imposter)
 	if (pos.x < 0 || pos.y < 0 || pos.y >= data->map_count
 		|| pos.x >= ft_strlen(data->holder[0]) || data->holder[pos.y][pos.x] == new)
 		return ;
-	if (data->holder[pos.y][pos.x] == '1' || data->holder[pos.y][pos.x] == imposter)
+	if (data->holder[pos.y][pos.x] == '1' || data->holder[pos.y][pos.x] == 'X' || data->holder[pos.y][pos.x] == imposter)
 		return ;
 	data->holder[pos.y][pos.x] = new;
 	pos.y--;

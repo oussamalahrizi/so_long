@@ -6,7 +6,7 @@
 /*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 20:45:42 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 11:25:52 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/01/20 23:05:39 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	data.map_path = av[1];
-	init_stuff(&data);
+	init_stuff(&data, 0);
 	init_map(&data);
 	set_map(&data);
 	check_map(&data);

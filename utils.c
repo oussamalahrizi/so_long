@@ -6,7 +6,7 @@
 /*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 02:38:20 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 15:36:35 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/01/25 22:17:04 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,50 +245,8 @@ int	check_player_exit(char **map, t_data *data)
 	return (1);
 }
 
-void spawn_enemies(t_data *data)
-{
-	int num_enemies = NUM_ENEMIES;
-	int i;
-	int random_row;
-	int random_col;
-	int x;
-	int y;
 
-	i = 0;
-	x = 0; 
-	while (num_enemies >= count_collect_exit(data->map, '0'))
-		num_enemies--;
-	data->enemies = malloc(sizeof(t_enemy_can) * num_enemies);
-	data->enemy_right = mlx_xpm_file_to_image(data->mlx, "textures/enemy-right.xpm", &x, &y);
-	data->enemy_left = mlx_xpm_file_to_image(data->mlx, "textures/enemy-left.xpm", &x, &y);
-	if (!data->enemy_right || !data->enemy_left)
-	{
-		write(2, RES_FAILED, ft_strlen(RES_FAILED));
-		exit (1);
-	}
-	data->num_enemies = num_enemies;
-	while (i < num_enemies)
-	{
-		random_col = rand() % data->map_count;
-		random_row = rand() % ft_strlen(*(data->map));
-		
-		if (data->map[random_col][random_row] == '0')
-		{
-			data->enemies[x].enemy = data->enemy_right;
-			data->enemies[x].pos.x = random_row * 50;
-			data->enemies[x].pos.y = random_col * 50;
-			if (x == 0)
-				printf("enemy_radom : %d %d\n", data->enemies[x].pos.x, data->enemies[x].pos.y);
-			x++;
-		}
-		else
-			i--;
-		i++;
-	}
-	// printf("enemy_radom : %d %d\n", data->enemies[0].pos.x, data->enemies[0].pos.y);
-}
-
-void	init_stuff(t_data *data)
+void	init_stuff(t_data *data, int bonus)
 {
 	data->map = read_map(data);
 	if (!data->map)
@@ -313,7 +271,8 @@ void	init_stuff(t_data *data)
 	data->player_y = data->pos_player.y * 50;
 	data->speed = 5;
 	data->direction = 1;
-	spawn_enemies(data);
+	if (bonus)
+		spawn_enemies(data);
 }
 
 void import_res(t_data *data)
@@ -367,6 +326,9 @@ void	set_map(t_data *data)
 			else if (data->map[y][x] == 'E')
 				mlx_put_image_to_window(data->mlx, data->win, data->door, x
 						* 50, y * 50);
+			// else if (data->map[y][x] == 'X')
+			// 	mlx_put_image_to_window(data->mlx, data->win, data->enemy_right, x
+			// 			* 50, y * 50);
 			x++;
 		}
 		y++;
