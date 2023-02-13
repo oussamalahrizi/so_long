@@ -14,9 +14,10 @@
 # define SO_LONG_H
 
 # include "ft_printf/ft_printf.h"
-# include "mlx.h"
+# include "mlx_linux/mlx.h"
 # include <fcntl.h>
 # include <stdio.h>
+#include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
 #include <math.h>

@@ -1,5 +1,4 @@
 NAME = so_long
-CFLAGS = -Wall -Wextra -Werror
 CC = cc
 ANIMATED = so_long_anime
 Mand = Mandatory/so_long.c
@@ -17,19 +16,20 @@ SRCS_B = Bonus/so_long_bonus.c spawn_enemies.c
 Man_OBJ = ${Mand:.c=.o}
 OBJ = ${SRCS:.c=.o}
 OBJ_B = ${SRCS_B:.c=.o}
+san = -fsanitize=address -g3
 
 printf_obj = ${libftprintf:.c=.o}
 
 all: ${NAME}
 
 $(NAME): $(OBJ) ${printf_obj} ${Man_OBJ}
-	$(CC) $(OBJ) ${printf_obj} ${Man_OBJ}  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ)  ${printf_obj} ${Man_OBJ} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
+	$(CC) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(ANIMATED): ${OBJ_B} $(OBJ) ${printf_obj} 
-	$(CC) $(OBJ) ${printf_obj} ${OBJ_B} -lmlx -framework OpenGL -framework AppKit -o $(ANIMATED)
+	$(CC) $(OBJ) $(san) ${printf_obj} ${OBJ_B} -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(ANIMATED)
 
 bonus : $(ANIMATED)
 clean:
