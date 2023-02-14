@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   substr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: olahrizi <olahrizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:23:01 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 11:02:55 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/02/14 23:37:00 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {

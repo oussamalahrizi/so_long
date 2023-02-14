@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                             :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olahrizi <olahrizi@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: olahrizi <olahrizi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 20:42:57 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/01/18 11:02:27 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/02/14 23:26:13 by olahrizi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define SO_LONG_H
 
 # include "ft_printf/ft_printf.h"
-# include "mlx_linux/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
+# include <math.h>
+# include <stdint.h>
 # include <stdio.h>
-#include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <math.h>
 
 // error messages
 # define F_MAP "wrong map.\n"
@@ -105,5 +105,12 @@ void			set_map(t_data *data);
 void			init_map(t_data *data);
 void			resize(t_data *data);
 void			spawn_enemies(t_data *data);
+int				check_new_lines(char *map);
+int				check_rectangle(char **map);
+int				check_extern_walls(char **map);
+int				check_imposter(char **map);
+int				map_lines(char **map);
+int				check_player_exit(t_data *data);
+int				check_collectible(char **map);
 
 #endif
