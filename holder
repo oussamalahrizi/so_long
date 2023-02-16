@@ -1,0 +1,126 @@
+
+void	move_enemy(t_data *data)
+{
+	int	player_x;
+	int	player_y;
+	int	i;
+	int	target_x;
+	int	target_y;
+
+	player_x = data->player_x;
+	player_y = data->player_y;
+	i = 0;
+	while (i < data->num_enemies)
+	{
+		target_x = data->enemies[i].x;
+		target_y = data->enemies[i].y;
+
+		if (target_x - data->enemies[i].map_x * 50 || target_y - data->enemies[i].map_y * 50)
+		{
+			move_enemy_2(data->enemies[i].map_x * 50, data->enemies[i].map_y * 50, data, i);
+			i++;
+			continue;
+		}
+		if (target_x != player_x)
+		{
+			int dir = (player_x - target_x) > 0 ? 1 : -1;
+			if (valid_position(data, data->enemies[i].map_x + dir, data->enemies[i].map_y))
+				data->enemies[i].map_x += dir;
+		}
+		else if (target_y != player_y)
+		{
+			int dir = (player_y - target_y) > 0 ? 1 : -1;
+			if (valid_position(data, data->enemies[i].map_x, data->enemies[i].map_y + dir))
+				data->enemies[i].map_y += dir;
+		}
+		i++;
+	}
+}
+
+
+void	move_player(t_data *data)
+{
+	int	target_x;
+	int	target_y;
+	int	i;
+
+	target_x = data->pos_player.x * 50;
+	target_y = data->pos_player.y * 50;
+	if (data->player_x > target_x)
+	{
+		data->player = data->player_left;
+		data->player_x += -data->speed;
+	}
+	else if (data->player_x < target_x)
+	{
+		data->player = data->player_right;
+		data->player_x += data->speed;
+	}
+	if (data->player_y > target_y)
+		data->player_y += -data->speed;
+	else if (data->player_y < target_y)
+		data->player_y += data->speed;
+	i = 0;
+	while (i < data->num_enemies)
+	{
+		if (is_within_range(data->enemies[i],
+				data->player_x, data->player_y, 25))
+		{
+			printf("you lost\n");
+			exit(1);
+		}
+		i++;
+	}
+	mlx_clear_window(data->mlx, data->win);
+	set_map(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->player, data->player_x,
+		data->player_y);
+}
+
+
+
+// version 2
+
+void	move_enemy(t_data *data)
+{
+	int	player_x;
+	int	player_y;
+	int	i;
+	int	target_x;
+	int	target_y;
+	int	dir;
+
+	player_x = data->player_x;
+	player_y = data->player_y;
+	i = 0;
+	while (i < data->num_enemies)
+	{
+		target_x = data->enemies[i].x;
+		target_y = data->enemies[i].y;
+		if (target_x - data->enemies[i].map_x * 50 || target_y - data->enemies[i].map_y * 50)
+		{
+			move_enemy_2(data->enemies[i].map_x * 50, data->enemies[i].map_y * 50, data, i);
+			i++;
+			continue;
+		}
+		if (target_x != player_x)
+		{
+			if (player_x - target_x > 0 )
+				dir = 1;
+			else
+				dir  = -1;
+			if (valid_position(data, data->enemies[i].map_x + dir, data->enemies[i].map_y))
+				data->enemies[i].map_x += dir;
+		}
+		else if (target_y != player_y)
+		{
+			if (player_y - target_y > 0 )
+				dir = 1;
+			else
+				dir  = -1;
+			if (valid_position(data, data->enemies[i].map_x, data->enemies[i].map_y + dir))
+				data->enemies[i].map_y += dir;
+		}
+		i++;
+	}
+}

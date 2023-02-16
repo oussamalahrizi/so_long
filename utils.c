@@ -3,29 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olahrizi <olahrizi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Exiled <exiled@owly.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 02:38:20 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/02/14 23:39:48 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/02/15 20:18:30 by Exiled           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**read_map(t_data *data)
+static char	*read_file(int fd)
 {
-	int		fd;
-	char	*file;
 	char	*buff;
-	char	**map;
+	char	*file;
 	int		readed;
 
-	fd = open(data->map_path, O_RDONLY);
-	if (fd < 0)
-	{
-		write(2, OPEN_FAILED, ft_strlen(OPEN_FAILED));
-		exit(1);
-	}
 	readed = 1;
 	buff = malloc(sizeof(char) * 11);
 	file = (char *)ft_calloc(1, 1);
@@ -41,16 +33,40 @@ char	**read_map(t_data *data)
 		buff[readed] = 0;
 		file = str_join(file, buff);
 	}
+	free(buff);
+	return (file);
+}
+
+static char	**parse_map(char *file, t_data *data)
+{
+	char	**map;
+
 	if (!*file || !check_new_lines(file))
 	{
-		free(buff);
 		free(file);
 		return (NULL);
 	}
 	map = ft_split(file, '\n');
 	data->holder = ft_split(file, '\n');
-	free(buff);
 	free(file);
+	return (map);
+}
+
+char	**read_map(t_data *data)
+{
+	int		fd;
+	char	*file;
+	char	**map;
+
+	fd = open(data->map_path, O_RDONLY);
+	if (fd < 0)
+	{
+		write(2, OPEN_FAILED, ft_strlen(OPEN_FAILED));
+		exit(1);
+	}
+	file = read_file(fd);
+	close(fd);
+	map = parse_map(file, data);
 	return (map);
 }
 
@@ -108,38 +124,4 @@ void	import_res(t_data *data)
 		exit(1);
 	}
 	data->player = data->player_right;
-}
-
-void	init_map(t_data *data)
-{
-	(import_res(data), resize(data));
-}
-
-void	set_map(t_data *data)
-{
-	int	x;
-	int	y;
-
-	mlx_put_image_to_window(data->mlx, data->win, data->image, 0, 0);
-	y = 0;
-	while (data->map[y])
-	{
-		x = 0;
-		while (data->map[y][x])
-		{
-			if (data->map[y][x] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->wall, x
-						* 50, y * 50);
-			else if (data->map[y][x] == 'C')
-			{
-				mlx_put_image_to_window(data->mlx, data->win, data->collectible,
-						x * 50, y * 50);
-			}
-			else if (data->map[y][x] == 'E')
-				mlx_put_image_to_window(data->mlx, data->win, data->door, x
-						* 50, y * 50);
-			x++;
-		}
-		y++;
-	}
 }

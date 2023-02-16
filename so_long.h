@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olahrizi <olahrizi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Exiled <exiled@owly.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 20:42:57 by olahrizi          #+#    #+#             */
-/*   Updated: 2023/02/14 23:26:13 by olahrizi         ###   ########.fr       */
+/*   Updated: 2023/02/16 13:26:56 by Exiled           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <time.h>
 # include <unistd.h>
 
 // error messages
@@ -112,5 +113,10 @@ int				check_imposter(char **map);
 int				map_lines(char **map);
 int				check_player_exit(t_data *data);
 int				check_collectible(char **map);
+int				quit(t_data *data);
+int				key_hook(int e, t_data *data);
+void			draw_enemy(t_data *data);
+int				is_within_range(t_enemy_can enemy, int x, int y, int size);
+void			ft_exit(char *error_msg);
 
 #endif
